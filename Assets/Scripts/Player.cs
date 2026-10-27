@@ -3,6 +3,7 @@ using System.Diagnostics;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Player : MonoBehaviour
     public float Points;
     [SerializeField] private GameObject DeathParticles;
     [SerializeField] private TextMeshProUGUI UIText;
+    [SerializeField] private GameObject GameOverUI;
     private Rigidbody2D Rigidbody2D;
     private SpriteRenderer SpriteRenderer;
     private bool Jumped = false;
@@ -48,8 +50,15 @@ public class Player : MonoBehaviour
         }
         SpriteRenderer.color = Color.Lerp(SpriteRenderer.color, new Color(SpriteRenderer.color.r, SpriteRenderer.color.g, SpriteRenderer.color.b, TargetAlpha), Time.deltaTime * 5);
 
-        if (Dead && Time.timeScale > 0)
+        if (Dead && Time.timeScale > 0) {
             Time.timeScale = Mathf.Lerp(Time.timeScale, 0f, Time.deltaTime);
+            GameOverUI.SetActive(true);
+        }
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1f;
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
