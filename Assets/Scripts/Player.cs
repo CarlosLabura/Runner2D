@@ -1,11 +1,15 @@
+using System;
 using System.Diagnostics;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Jump : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [Min(0)] public float JumpForce;
+    public float Points;
     [SerializeField] private GameObject DeathParticles;
+    [SerializeField] private TextMeshProUGUI UIText;
     private Rigidbody2D Rigidbody2D;
     private SpriteRenderer SpriteRenderer;
     private bool Jumped = false;
@@ -20,6 +24,11 @@ public class Jump : MonoBehaviour
     }
     void Update()
     {
+        if (!Dead) {
+            Points += Time.deltaTime;
+            UIText.SetText(Math.Truncate(Points).ToString());
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) {
             if (!Jumped) {
                 Rigidbody2D.AddForceY(JumpForce, ForceMode2D.Impulse);
