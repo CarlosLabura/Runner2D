@@ -34,13 +34,13 @@ public class Player : MonoBehaviour
             UIText.SetText(Math.Truncate(Points).ToString());
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) {
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetMouseButtonDown(0)) {
             if (!Jumped) {
                 Rigidbody2D.AddForceY(JumpForce, ForceMode2D.Impulse);
                 transform.localScale = new Vector3(OrginalScale.x * 0.75f, OrginalScale.y * 1.25f, OrginalScale.z);
                 Jumped = true;
             }
-        } else if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.DownArrow)) {
+        } else if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.DownArrow) || Input.GetMouseButton(1)) {
             if (Jumped) {
                 Rigidbody2D.AddForceY(-0.1f, ForceMode2D.Impulse);
                 transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(OrginalScale.x * 1.15f, OrginalScale.y * 0.85f, OrginalScale.z), Time.deltaTime * 5);
