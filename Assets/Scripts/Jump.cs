@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Jump : MonoBehaviour
@@ -10,6 +11,7 @@ public class Jump : MonoBehaviour
     private bool Jumped = false;
     private Vector3 OrginalScale;
     private float TargetAlpha = 1f;
+    private bool Dead = false;
     void Start()
     {
         SpriteRenderer = GetComponent<SpriteRenderer>();
@@ -36,6 +38,9 @@ public class Jump : MonoBehaviour
             transform.localScale = Vector3.Lerp(transform.localScale, OrginalScale, Time.deltaTime * 5);
         }
         SpriteRenderer.color = Color.Lerp(SpriteRenderer.color, new Color(SpriteRenderer.color.r, SpriteRenderer.color.g, SpriteRenderer.color.b, TargetAlpha), Time.deltaTime * 5);
+
+        if (Dead && Time.timeScale > 0)
+            Time.timeScale = Mathf.Lerp(Time.timeScale, 0f, Time.deltaTime);
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -46,6 +51,7 @@ public class Jump : MonoBehaviour
             Rigidbody2D.bodyType = RigidbodyType2D.Static;
             Instantiate(DeathParticles, transform.position, Quaternion.identity);
             Destroy(gameObject, 2f);
+            Dead = true;
         }
     }
 }
