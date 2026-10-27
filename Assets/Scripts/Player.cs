@@ -7,8 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    [Header("Player Configs")]
     [Min(0)] public float JumpForce;
     public float Points;
+    
+    [Header("Objects Needed")]
     [SerializeField] private GameObject DeathParticles;
     [SerializeField] private TextMeshProUGUI UIText;
     [SerializeField] private GameObject GameOverUI;
