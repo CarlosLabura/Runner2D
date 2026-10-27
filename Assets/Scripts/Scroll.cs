@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Scroll : MonoBehaviour
 {
-    public float ScrollSpeed;
+    [Min(0)] public float ScrollSpeed;
     void Update()
     {
         transform.position = new Vector3(
